@@ -1,6 +1,6 @@
 Welcome to Practical Analytics.
 
-Visit www.analytics.practicalvr.com to register.
+Visit http://analytics.practicalvr.com/portal/publisher to register.
 
 Once you access the portal, click on "My Apps". 
 Add your app to the platform and recieve your API key.

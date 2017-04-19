@@ -8,6 +8,7 @@ using Debug = UnityEngine.Debug;
 using System.Runtime.InteropServices;
 using HoloToolkit.Unity.InputModule;
 
+
 public class PracticalAPI : PracticalSingleton<PracticalAPI>
 {
 	/**
@@ -126,11 +127,13 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 	* @apiVersion 0.1.0
 	*/
 
+#if WINDOWS_UWP
 	public string GetErrorMessage(int errorCode)
 	{
 		return Marshal.PtrToStringAnsi(PracticalDLL.GetErrorMessage(errorCode));
 	}
-	
+#endif
+
 	/**
 	* @api {C# - Method} GetLastErrorMessage() GetLastErrorMessage()
 	* @apiName GetLastErrorMessage()
@@ -141,12 +144,14 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 	* @apiGroup PracticalAPI
 	* @apiPermission admin
 	* @apiVersion 0.1.0
-	*/
+*/
 
+#if WINDOWS_UWP
 	public string GetLastErrorMessage()
 	{
 		return Marshal.PtrToStringAnsi(PracticalDLL.GetLastErrorMessage());
 	}
+#endif
 
 
 	/**
@@ -190,9 +195,11 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 			Debug.Log("Formula: " + (int)formula);
 		}
 
+#if WINDOWS_UWP
 		if (gazeManager.HitObject != null)
 		{
 			var objName = gazeManager.HitObject.gameObject.name;
+
 			int ret = PracticalDLL.RecordCustomStat(uniqueIdentifier, value.ToString(), ((int)measurement).ToString(), ((int)formula).ToString(), objName);
 
 			if (ret > 0)
@@ -209,6 +216,7 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 				Debug.Log(GetErrorMessage(ret));
 			}
 		}
+#endif
 	}
 
 
@@ -236,12 +244,13 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 			Debug.Log("Unique Identifier: " + uniqueIdentifier + "\n");
 			Debug.Log("Value: " + value + "\n");
 		}
-
+#if WINDOWS_UWP
 		int ret = PracticalDLL.RecordGain(uniqueIdentifier, value.ToString());
 		
 		if(ret > 0) {
 			Debug.Log(GetErrorMessage(ret));
 		}
+#endif
 	}
 
 	/**
@@ -269,11 +278,13 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 			Debug.Log("Unique Identifier: " + uniqueIdentifier + "\n");
 			Debug.Log("Value: " + value + "\n");
 		}
+#if WINDOWS_UWP
 		int ret = PracticalDLL.RecordLoss(uniqueIdentifier, value.ToString());
 		
 		if(ret > 0) {
 			Debug.Log(GetErrorMessage(ret));
 		}
+#endif
 	}
 
 	/**
@@ -308,20 +319,24 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 		if (gazeManager.HitObject != null)
 		{
 			var objName = gazeManager.HitObject.gameObject.name;
+#if WINDOWS_UWP
 			int ret = PracticalDLL.RecordKeyword(keyword, "1.0", objName);
 			if (ret > 0)
 			{
 				Debug.Log(GetErrorMessage(ret));
 			}
+
 		}
 		else
 		{
+
 			int ret = PracticalDLL.RecordKeyword(keyword, "1.0", interactObject);
 
 			if (ret > 0)
 			{
 				Debug.Log(GetErrorMessage(ret));
 			}
+#endif
 		}
 	}
 
@@ -360,6 +375,7 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 			}
 		}
 
+#if WINDOWS_UWP
 		if (gazeManager.HitObject != null)
 		{
 			// Will pass objName from HitObject & HoldLength default values if not provided. 
@@ -382,6 +398,7 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 			}
 
 		}
+#endif
 	}
 
 	/**
@@ -482,14 +499,14 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 		{
 			Debug.Log("Object Viewed: " + viewedObject + " for " + gazeLength + " seconds. \n");
 		}
-
+#if WINDOWS_UWP
 		int ret = PracticalDLL.RecordGaze(viewedObject, gazeLength.ToString());
 
 		if (ret > 0)
 		{
 			Debug.Log(GetErrorMessage(ret));
 		}
-
+#endif
 	}
 }
 

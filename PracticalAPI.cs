@@ -37,9 +37,9 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 	*/
 
 	public bool logSummary;
+	public GazeManager gazeManager;
 	private Stopwatch gazeStopWatch;
 	private Stopwatch gestureStopWatch;
-	private GazeManager gazeManager;
 	private string viewedObject;
 
 	/**
@@ -108,7 +108,6 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 	{
 		gazeStopWatch = new Stopwatch();
 		gestureStopWatch = new Stopwatch();
-		gazeManager = GameObject.Find("GazeManager").GetComponent<GazeManager>();
 	}
 
 	/**

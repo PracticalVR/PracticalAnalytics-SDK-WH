@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.PracticalAssets.Practical_Analytics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PracticalConfig : MonoBehaviour
 {
@@ -13,8 +14,14 @@ public class PracticalConfig : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		_practicalDLL = GameObject.Find("PracticalManager").GetComponent<PracticalDLL>();
+		_practicalDLL = GetComponent<PracticalDLL>();
 		_practicalDLL.SetAPIKey(APIKey);
 	}
+
+	void Awake()
+	{
+		DontDestroyOnLoad(transform.gameObject);
+	}
+
 	
 }

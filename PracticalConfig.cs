@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Assets.PracticalAssets.Practical_Analytics;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PracticalConfig : MonoBehaviour
 {
@@ -22,6 +21,4 @@ public class PracticalConfig : MonoBehaviour
 	{
 		DontDestroyOnLoad(transform.gameObject);
 	}
-
-	
 }

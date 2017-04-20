@@ -38,7 +38,6 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 	*/
 
 	public bool logSummary;
-	private GazeManager gazeManager;
 	private Stopwatch gazeStopWatch;
 	private Stopwatch gestureStopWatch;
 	private string viewedObject;
@@ -109,7 +108,6 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 	{
 		gazeStopWatch = new Stopwatch();
 		gestureStopWatch = new Stopwatch();
-		gazeManager = GazeManager.Instance;
 	}
 
 	/**
@@ -186,9 +184,9 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 			Debug.Log("Unique Identifier " + uniqueIdentifier + "\n");
 			Debug.Log("Value: " + value + "\n");
 
-			if (gazeManager.HitObject != null)
+			if (GazeManager.Instance.HitObject != null)
 			{
-				var objName = gazeManager.HitObject.gameObject.name;
+				var objName = GazeManager.Instance.HitObject.gameObject.name;
 				Debug.Log("Object name: " + objName + "\n");
 			}
 
@@ -196,28 +194,30 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 			Debug.Log("Formula: " + (int)formula);
 		}
 
-#if WINDOWS_UWP
-		if (gazeManager.HitObject != null)
-		{
-			var objName = gazeManager.HitObject.gameObject.name;
 
+		if (GazeManager.Instance.HitObject != null)
+		{
+			var objName = GazeManager.Instance.HitObject.gameObject.name;
+#if WINDOWS_UWP
 			int ret = PracticalDLL.RecordCustomStat(uniqueIdentifier, value.ToString(), ((int)measurement).ToString(), ((int)formula).ToString(), objName);
 
 			if (ret > 0)
 			{
 				Debug.Log(GetErrorMessage(ret));
 			}
+#endif
 		}
 		else
 		{
+#if WINDOWS_UWP
 			int ret = PracticalDLL.RecordCustomStat(uniqueIdentifier, value.ToString(), ((int)measurement).ToString(), ((int)formula).ToString(), gazedObject);
 
 			if (ret > 0)
 			{
 				Debug.Log(GetErrorMessage(ret));
 			}
-		}
 #endif
+		}
 	}
 
 
@@ -310,16 +310,16 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 		{
 			Debug.Log("Keyword recorded: " + keyword + "\n");
 
-			if (gazeManager.HitObject != null)
+			if (GazeManager.Instance.HitObject != null)
 			{
-				var objName = gazeManager.HitObject.gameObject.name;
+				var objName = GazeManager.Instance.HitObject.gameObject.name;
 				Debug.Log("Target: " + objName + "\n");
 			}
 		}
 
-		if (gazeManager.HitObject != null)
+		if (GazeManager.Instance.HitObject != null)
 		{
-			var objName = gazeManager.HitObject.gameObject.name;
+			var objName = GazeManager.Instance.HitObject.gameObject.name;
 #if WINDOWS_UWP
 			int ret = PracticalDLL.RecordKeyword(keyword, "1.0", objName);
 			if (ret > 0)
@@ -365,9 +365,9 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 		{
 			Debug.Log("Tap event recorded: " + uniqueIdentifier + "\n");
 			Debug.Log("GestureType: " + gestureType + "\n");
-			if (gazeManager.HitObject != null)
+			if (GazeManager.Instance.HitObject != null)
 			{
-				var objName = gazeManager.HitObject.gameObject.name;
+				var objName = GazeManager.Instance.HitObject.gameObject.name;
 				Debug.Log("Object name: " + objName + "\n");
 			}
 			if (HoldLength > 0)
@@ -376,11 +376,12 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 			}
 		}
 
-#if WINDOWS_UWP
-		if (gazeManager.HitObject != null)
+
+		if (GazeManager.Instance.HitObject != null)
 		{
 			// Will pass objName from HitObject & HoldLength default values if not provided. 
-			var objName = gazeManager.HitObject.gameObject.name;
+			var objName = GazeManager.Instance.HitObject.gameObject.name;
+#if WINDOWS_UWP
 			int ret = PracticalDLL.RecordGesture(uniqueIdentifier, "1.0", ((int)gestureType).ToString(), objName, HoldLength.ToString());
 
 			if (ret > 0)
@@ -397,9 +398,8 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 			{
 				Debug.Log(GetErrorMessage(ret));
 			}
-
-		}
 #endif
+		}
 	}
 
 	/**

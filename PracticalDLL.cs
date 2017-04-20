@@ -1,6 +1,5 @@
 ﻿using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEngine.Networking.NetworkSystem;
 
 namespace Assets.PracticalAssets.Practical_Analytics
 {
@@ -42,12 +41,15 @@ namespace Assets.PracticalAssets.Practical_Analytics
 
 		public void SetAPIKey(string LoadedAPIKey)
 		{
+#if WINDOWS_UWP
+			LoadedAPIKey = LoadedAPIKey.Replace(" ","");
 			int errorCode = Startup(LoadedAPIKey);
 			if (errorCode > 0)
 			{
 				string errorMessage = Marshal.PtrToStringAnsi(GetErrorMessage(errorCode));
 				Debug.Log(errorMessage);
 			}
+#endif
 		}
 
 		public void SendEmail()

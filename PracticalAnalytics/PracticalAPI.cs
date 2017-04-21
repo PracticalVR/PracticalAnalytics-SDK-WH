@@ -38,6 +38,7 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 	*/
 
 	public bool logSummary;
+	private GazeManager gazeManager;
 	private Stopwatch gazeStopWatch;
 	private Stopwatch gestureStopWatch;
 	private string viewedObject;
@@ -108,6 +109,7 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 	{
 		gazeStopWatch = new Stopwatch();
 		gestureStopWatch = new Stopwatch();
+		gazeManager = GazeManager.Instance;
 	}
 
 	/**
@@ -184,9 +186,9 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 			Debug.Log("Unique Identifier " + uniqueIdentifier + "\n");
 			Debug.Log("Value: " + value + "\n");
 
-			if (GazeManager.Instance.HitObject != null)
+			if (gazeManager.HitObject != null)
 			{
-				var objName = GazeManager.Instance.HitObject.gameObject.name;
+				var objName = gazeManager.HitObject.gameObject.name;
 				Debug.Log("Object name: " + objName + "\n");
 			}
 
@@ -194,30 +196,28 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 			Debug.Log("Formula: " + (int)formula);
 		}
 
-
-		if (GazeManager.Instance.HitObject != null)
-		{
-			var objName = GazeManager.Instance.HitObject.gameObject.name;
 #if WINDOWS_UWP
+		if (gazeManager.HitObject != null)
+		{
+			var objName = gazeManager.HitObject.gameObject.name;
+
 			int ret = PracticalDLL.RecordCustomStat(uniqueIdentifier, value.ToString(), ((int)measurement).ToString(), ((int)formula).ToString(), objName);
 
 			if (ret > 0)
 			{
 				Debug.Log(GetErrorMessage(ret));
 			}
-#endif
 		}
 		else
 		{
-#if WINDOWS_UWP
 			int ret = PracticalDLL.RecordCustomStat(uniqueIdentifier, value.ToString(), ((int)measurement).ToString(), ((int)formula).ToString(), gazedObject);
 
 			if (ret > 0)
 			{
 				Debug.Log(GetErrorMessage(ret));
 			}
-#endif
 		}
+#endif
 	}
 
 
@@ -310,16 +310,16 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 		{
 			Debug.Log("Keyword recorded: " + keyword + "\n");
 
-			if (GazeManager.Instance.HitObject != null)
+			if (gazeManager.HitObject != null)
 			{
-				var objName = GazeManager.Instance.HitObject.gameObject.name;
+				var objName = gazeManager.HitObject.gameObject.name;
 				Debug.Log("Target: " + objName + "\n");
 			}
 		}
 
-		if (GazeManager.Instance.HitObject != null)
+		if (gazeManager.HitObject != null)
 		{
-			var objName = GazeManager.Instance.HitObject.gameObject.name;
+			var objName = gazeManager.HitObject.gameObject.name;
 #if WINDOWS_UWP
 			int ret = PracticalDLL.RecordKeyword(keyword, "1.0", objName);
 			if (ret > 0)
@@ -365,9 +365,9 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 		{
 			Debug.Log("Tap event recorded: " + uniqueIdentifier + "\n");
 			Debug.Log("GestureType: " + gestureType + "\n");
-			if (GazeManager.Instance.HitObject != null)
+			if (gazeManager.HitObject != null)
 			{
-				var objName = GazeManager.Instance.HitObject.gameObject.name;
+				var objName = gazeManager.HitObject.gameObject.name;
 				Debug.Log("Object name: " + objName + "\n");
 			}
 			if (HoldLength > 0)
@@ -376,12 +376,11 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 			}
 		}
 
-
-		if (GazeManager.Instance.HitObject != null)
+#if WINDOWS_UWP
+		if (gazeManager.HitObject != null)
 		{
 			// Will pass objName from HitObject & HoldLength default values if not provided. 
-			var objName = GazeManager.Instance.HitObject.gameObject.name;
-#if WINDOWS_UWP
+			var objName = gazeManager.HitObject.gameObject.name;
 			int ret = PracticalDLL.RecordGesture(uniqueIdentifier, "1.0", ((int)gestureType).ToString(), objName, HoldLength.ToString());
 
 			if (ret > 0)
@@ -398,8 +397,9 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 			{
 				Debug.Log(GetErrorMessage(ret));
 			}
-#endif
+
 		}
+#endif
 	}
 
 	/**
@@ -510,7 +510,7 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 #endif
 	}
 
-	/**
+    /**
 	* @api {C# - Method} IncludeMapping() IncludeMapping()
 	* @apiName IncludeMapping()
 	* @apiDescription IncludeMapping() will add gaze tracking to mapping objects.
@@ -521,8 +521,10 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 	* @apiPermission admin
 	* @apiVersion 0.1.0
 	*/
+    [Tooltip("The physics layer for spatial mapping objects to be set to.")]
+    public int MappingPhysicsLayer = 31;
 
-	public void IncludeMapping()
+    public void IncludeMapping()
 	{
 		var goArray = FindObjectsOfType<GameObject>();
 
@@ -530,13 +532,13 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 		{
 			if (obj.layer == MappingPhysicsLayer)
 			{
-				obj.AddComponent<PracticalGazeTracker>();
-				obj.GetComponent<PracticalGazeTracker>().customIdentifier = "Mapping";
+				var tracker = obj.AddComponent<PracticalGazeTracker>();
+                tracker.customName = true;
+				tracker.customIdentifier = "Mapping";
 			}
 		}
 
 	}
-	[Tooltip("The physics layer for spatial mapping objects to be set to.")]
-	public int MappingPhysicsLayer = 31;
+
 }
 

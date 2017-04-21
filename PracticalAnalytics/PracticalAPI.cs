@@ -14,7 +14,7 @@ public class PracticalAPI : PracticalSingleton<PracticalAPI>
 	/**
 	* @api {C# - Class} PracticalAPI Overview
 	* @apiGroup Basics
-	* @apiDescription PracticalAPI contains methods that enable you to track/record events in your application. A helper script are available for gaze input.
+	* @apiDescription PracticalAPI contains methods that enable you to track/record events in your application. A helper script is available for gaze input.
 	* @apiParam (Methods) {Gaze} RecordGazeOn Tracks what objects are being gazed on.
 	* @apiParam (Methods) {Gaze} RecordGazeOff Ends object tracking and reports seconds gazed.
 	* @apiParam (Methods) {Gesture} RecordGesture Records when gestures are being used.

@@ -7,4 +7,4 @@ Add your app to the platform and recieve your API key.
 
 In unity drag the practical manager prefab into your scene and add the API Key.
 
-**Documentation coming soon**
+**Documentation site coming soon, see folder for temporary documentation**

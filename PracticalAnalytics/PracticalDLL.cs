@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using UnityEngine;
+using Practical;
 
 namespace Practical.Analytics
 {

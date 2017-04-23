@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
-using Assets;
-using Assets.PracticalAssets;
-using Assets.PracticalAssets.Practical_Analytics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 using System.Runtime.InteropServices;
 using HoloToolkit.Unity.InputModule;
+using Practical;
 
 namespace Practical.Analytics
 {

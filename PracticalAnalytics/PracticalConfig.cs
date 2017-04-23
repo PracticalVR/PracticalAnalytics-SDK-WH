@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using Assets.PracticalAssets.Practical_Analytics;
 using UnityEngine;
 
-public class PracticalConfig : MonoBehaviour
+namespace Practical
 {
-	public string APIKey;
-
-	private PracticalDLL _practicalDLL;
-
-
-	// Use this for initialization
-	void Start ()
+	public class PracticalConfig : MonoBehaviour
 	{
-		_practicalDLL = GetComponent<PracticalDLL>();
-		_practicalDLL.SetAPIKey(APIKey);
-	}
+		public string APIKey;
+		private PracticalDLL _practicalDLL;
 
-	void Awake()
-	{
-		DontDestroyOnLoad(transform.gameObject);
+		// Use this for initialization
+		void Start()
+		{
+			_practicalDLL = GetComponent<PracticalDLL>();
+			_practicalDLL.SetAPIKey(APIKey);
+		}
+
+		void Awake()
+		{
+			DontDestroyOnLoad(transform.gameObject);
+		}
 	}
 }

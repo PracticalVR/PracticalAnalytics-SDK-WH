@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using UnityEngine;
 
-namespace Assets.PracticalAssets.Practical_Analytics
+namespace Practical.Analytics
 {
 	public class PracticalDLL : MonoBehaviour
 	{

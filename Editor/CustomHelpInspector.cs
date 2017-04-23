@@ -7,7 +7,6 @@ using UnityEngine;
 [CustomEditor(typeof(PracticalDLL))]
 public class CustomHelpInspector : Editor
 {
-
 	public override void OnInspectorGUI()
 	{
 		GUILayout.Label("Have feedback?");
@@ -19,7 +18,5 @@ public class CustomHelpInspector : Editor
 	{
 		var helpButton = new PracticalDLL();
 		helpButton.SendEmail();
-		//Application.OpenURL("http://practicalvr.com/");
 	}
-
 }

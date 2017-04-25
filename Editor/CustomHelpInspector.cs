@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Assets.PracticalAssets.Practical_Analytics;
 using UnityEditor;
 using UnityEngine;
+using Practical.Analytics;
 
 [CustomEditor(typeof(PracticalDLL))]
 public class CustomHelpInspector : Editor

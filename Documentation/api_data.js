@@ -145,7 +145,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Getting Started:",
-        "content": "Repository:\nhttps://github.com/PracticalVR/PracticalAnalytics-SDK-WH\n\nImport the PracticalAnayltics package and drag the PracticalManager prefab into your scene.\n\nAccess the API Key from the \"My Apps\" section of http://analytics.practicalvr.com\n\nYou can enable Log Summary in the inspector to see data being collected in the debug log.\n\nGive feedback in the inspector when PracticalManager is selected.\n\nTo set up Dll, locate the plugins folder. \nInside the folder will be the DLL.\nIn inspector, set only WSAPlayer.\nMake sure CPU is set to X86.\nClick Apply.\n\nA clean build is required when implementing DLL.\nYou must delete the content in your build folder when doing the initial build with DLL.\n\nYou must gather a minimum of 10 stats before session data is accepted. \n\nCapabilities in Unity must include InternetClient and PicturesLibrary for platform integration.",
+        "content": "Repository:\nhttps://github.com/PracticalVR/PracticalAnalytics-SDK-WH\n\nPortal:\nhttp://analytics.practicalvr.com\n\nImport the PracticalAnayltics package and drag the PracticalManager prefab into your scene.\n\nPracticalManager will include:\n- PracticalConfig.cs\n        - API key field (Obtain from \"My Apps\" from portal)\n- PracticalAPI.cs\n        - Log Summary checkbox (Displays API results in output)\n- PracticalDLL.cs\n        - Feedback link\n\nTo set up Dll, locate the plugins folder. \nInside the folder will be the DLL.\nIn inspector, set only WSAPlayer.\nMake sure CPU is set to X86.\nClick Apply.\n\nA clean build is required when implementing DLL.\nYou must delete the content in your build folder when doing the initial build with DLL.\n\nYou must gather a minimum of 10 stats before session data is accepted. \n\nCapabilities in Unity must include InternetClient and PicturesLibrary for platform integration.",
         "type": "json"
       }
     ],
@@ -290,7 +290,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Usage:",
-        "content": "If you want to group multiple GameObject stats together, \nyou can drag this script onto those objects and give them an identical custom name.\nThe custom name will show in the portal with the collected stats from that group. \n\nSee IncludeMapping() to add mapping to gaze tracking.",
+        "content": "Drag this script onto objects to utilize gaze tracking capabilities. \n\nThis script also enables you group multiple GameObject stats together:\n- Drag this script onto objects you want to group and give them a identical custom name.\n- Make sure the custom name on the grouped objects match. \n\nThe custom name will show in the portal with the collected gaze stats from that group. \n\nSee IncludeMapping() to add mapping to gaze tracking.",
         "type": "json"
       }
     ],
@@ -398,6 +398,11 @@ define({ "api": [
     "description": "<p>IncludeMapping() will add gaze tracking to mapped objects.</p>",
     "parameter": {
       "examples": [
+        {
+          "title": "Implementation:",
+          "content": "For Spatial Understanding, it can be called after you finalize the mapping (recommended).\n\nFor Spatial Mapping with a formal or timed experience, it can be called after the mapping is complete.\n\nFor on-going Spatial Mapping, invoke on a delay that allows a significant portion of the room to be mapped.\n\nThis will group all the mapping objects together.\nThe portal will reflect a single object called \"Mapping\", instead of multiple mapping objects.",
+          "type": "json"
+        },
         {
           "title": "Structure:",
           "content": "PracticalAPI.Instance.IncludeMapping();",

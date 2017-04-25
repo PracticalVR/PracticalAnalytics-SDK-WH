@@ -545,6 +545,16 @@ namespace Practical.Analytics
 		 * @apiName IncludeMapping()
 		 * @apiDescription IncludeMapping() will add gaze tracking to mapped objects.
 		 * 
+		 * @apiParamExample {json} Implementation:
+		 * For Spatial Understanding, it can be called after you finalize the mapping (recommended).
+		 * 
+		 * For Spatial Mapping with a formal or timed experience, it can be called after the mapping is complete.
+		 * 
+		 * For on-going Spatial Mapping, invoke on a delay that allows a significant portion of the room to be mapped.
+		 * 
+		 * This will group all the mapping objects together.
+		 * The portal will reflect a single object called "Mapping", instead of multiple mapping objects.
+		 * 
 		 * @apiParamExample {json} Structure:
 		 * PracticalAPI.Instance.IncludeMapping();
 		 * 
@@ -577,9 +587,13 @@ namespace Practical.Analytics
 			* @apiDescription PracticalGazeTracker.cs provides a field for a custom identifier that groups GameObject stats together when they share the same identifier.
 			* 
 			* @apiExample Usage:
-			* If you want to group multiple GameObject stats together, 
-			* you can drag this script onto those objects and give them an identical custom name.
-			* The custom name will show in the portal with the collected stats from that group. 
+			* Drag this script onto objects to utilize gaze tracking capabilities. 
+			* 
+			* This script also enables you group multiple GameObject stats together:
+			* - Drag this script onto objects you want to group and give them a identical custom name.
+			* - Make sure the custom name on the grouped objects match. 
+			* 
+			* The custom name will show in the portal with the collected gaze stats from that group. 
 			* 
 			* See IncludeMapping() to add mapping to gaze tracking. 
 			* 
@@ -598,13 +612,18 @@ namespace Practical.Analytics
 		* Repository:
 		* https://github.com/PracticalVR/PracticalAnalytics-SDK-WH
 		* 
+		* Portal:
+		* http://analytics.practicalvr.com
+		* 
 		* Import the PracticalAnayltics package and drag the PracticalManager prefab into your scene.
 		* 
-		* Access the API Key from the "My Apps" section of http://analytics.practicalvr.com
-		* 
-		* You can enable Log Summary in the inspector to see data being collected in the debug log.
-		* 
-		* Give feedback in the inspector when PracticalManager is selected.
+		* PracticalManager will include:
+		* - PracticalConfig.cs
+		*         - API key field (Obtain from "My Apps" from portal)
+		* - PracticalAPI.cs
+		*         - Log Summary checkbox (Displays API results in output)
+		* - PracticalDLL.cs
+		*         - Feedback link
 		* 
 		* To set up Dll, locate the plugins folder. 
 		* Inside the folder will be the DLL.
